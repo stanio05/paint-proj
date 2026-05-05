@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="page-header"><div class="container"><h2>Szczegóły zwierzęcia</h2><p>Poznaj charakter, potrzeby i stan zdrowia wybranego zwierzęcia.</p></div></section>
+<section class="section"><div class="container details-layout">
+    <div class="details-photo"><img src="{% if animal.image %}{{ animal.image.url }}{% else %}https://via.placeholder.com/600x400?text=Brak+zdjęcia{% endif %}" alt="{{ animal.name }}"></div>
+    <article class="details-card">
+        <div class="animal-meta">
+            <span class="badge">{{ animal.get_species_display }}</span>
+            <span class="badge">{{ animal.age }} lat</span>
+            <span class="badge">{{ animal.shelter.city|title }}</span>
+        </div>
+        <h2>{{ animal.name }}</h2>
+        <p>{{ animal.description }}</p>
+        <div class="info-list">
+            <div><strong>Gatunek</strong><span>{{ animal.get_species_display }}</span></div>
+            <div><strong>Wiek</strong><span>{{ animal.age }} lat</span></div>
+            <div><strong>Wielkość</strong><span>{{ animal.get_size_display }}</span></div>
+            <div><strong>Schronisko</strong><span>{{ animal.shelter.name }}</span></div>
+            <div><strong>Status</strong><span>{{ animal.get_status_display }}</span></div>
+        </div>
+        <div class="card-buttons">
+            <a href="{% url 'adoption_form' %}?animal={{ animal.name }}" class="btn btn-main">Złóż wniosek</a>
+            <a href="{% url 'contact_form' %}?animal={{ animal.name }}" class="btn btn-light">Zapytaj o {{ animal.name }}</a>
+        </div>
+    </article>
+</div></section>
+<section class="section bg-light"><div class="container"><div class="section-title"><h2>Dodatkowe informacje</h2><p>Najważniejsze informacje pomocne przed decyzją o adopcji.</p></div><div class="grid-3"><article class="card"><h3>Zdrowie</h3><p>Burek jest pod opieką weterynaryjną, ma aktualne szczepienia i został przygotowany do adopcji.</p></article><article class="card"><h3>Zachowanie</h3><p>Lubi ludzi, spacery i zabawę. Najlepiej sprawdzi się u opiekuna, który zapewni mu ruch.</p></article><article class="card"><h3>Potrzeby</h3><p>Wymaga regularnych spacerów, cierpliwości oraz odpowiedzialnej opieki po adopcji.</p></article></div></div></section>
+
+{% endblock %}

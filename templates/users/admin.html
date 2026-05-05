@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="page-header"><div class="container"><h2>Panel administratora</h2><p>Zarządzanie ogłoszeniami oraz zgłoszeniami adopcyjnymi.</p></div></section>
+<section class="section"><div class="container admin-layout">
+    <div class="form-card"><h3>Dodaj ogłoszenie</h3>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="form-message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <form method="post" action="{% url 'admin_panel' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="field"><label for="name">Nazwa zwierzęcia *</label><input id="name" name="name" type="text" required></div>
+        <div class="form-grid"><div class="field"><label for="species_admin">Gatunek *</label><select id="species_admin" name="species" required><option value="">Wybierz</option><option value="pies">Pies</option><option value="kot">Kot</option></select></div><div class="field"><label for="age_admin">Wiek *</label><input id="age_admin" name="age" type="number" min="0" required></div></div>
+        <div class="form-grid"><div class="field"><label for="shelter_admin">Miasto *</label><input id="shelter_admin" name="shelter" type="text" required></div></div>
+        <div class="field"><label for="id_image">Zdjęcie</label><input id="id_image" name="image" type="file"></div>
+        <div class="field"><label for="description_admin">Opis *</label><textarea id="description_admin" name="description" rows="5" required></textarea></div>
+        <button class="btn btn-main full-btn" type="submit">Zapisz ogłoszenie</button>
+    </form></div>
+    <div class="admin-card"><h3>Lista ogłoszeń</h3><div class="admin-list">
+        {% for animal in animals %}
+        <article class="admin-item"><div><h4>{{ animal.name }}</h4><p><strong>Gatunek:</strong> {{ animal.get_species_display }}</p><p><strong>Status:</strong> {{ animal.get_status_display }}</p></div><div class="card-buttons"><button class="btn btn-light small-btn" type="button">Edytuj</button></div></article>
+        {% endfor %}
+    </div></div>
+</div></section>
+<section class="section bg-light"><div class="container table-card"><h3>Zgłoszenia adopcyjne</h3><div class="table-wrap"><table><thead><tr><th>Użytkownik</th><th>Zwierzę</th><th>Telefon</th><th>Status</th><th>Data</th></tr></thead><tbody>
+    {% for app in applications %}
+    <tr>
+        <td>{{ app.applicant.username }}</td>
+        <td>{{ app.animal.name }}</td>
+        <td>{{ app.phone_number }}</td>
+        <td><span class="status wait">{{ app.get_status_display }}</span></td>
+        <td>{{ app.created_at|date:"d.m.Y" }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">Brak nowych zgłoszeń.</td></tr>
+    {% endfor %}
+</tbody></table></div></div></section>
+
+{% endblock %}

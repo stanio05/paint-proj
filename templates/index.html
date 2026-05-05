@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="hero-card">
+            <span class="eyebrow">Adopcja zwierząt</span>
+            <h2>Znajdź zwierzęciu bezpieczny dom</h2>
+            <p class="lead">Poznaj psy i koty czekające na adopcję, sprawdź ich profile, wypełnij wniosek i skontaktuj się ze schroniskiem.</p>
+            <div class="hero-buttons">
+                <a href="{% url 'animals_list' %}" class="btn btn-main">Przeglądaj zwierzęta</a>
+                <a href="{% url 'adoption_form' %}" class="btn btn-light">Złóż wniosek</a>
+            </div>
+        </div>
+        <aside class="side-card">
+            <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=80&w=1200&auto=format&fit=crop" alt="Pies w domu">
+            <div class="side-card-content">
+                <h3>Co możesz zrobić na stronie</h3>
+                <ul class="check-list">
+                    <li>sprawdzić aktualne ogłoszenia adopcyjne</li>
+                    <li>wyszukać zwierzę według gatunku, wieku i miasta</li>
+                    <li>wypełnić formularz adopcyjny</li>
+                    <li>wysłać wiadomość do schroniska</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="section-title center">
+            <h2>Jak przebiega adopcja?</h2>
+            <p>Cały proces jest prosty i przejrzysty. Najpierw wybierasz zwierzę, potem składasz wniosek, a pracownik schroniska kontaktuje się z Tobą w sprawie dalszych kroków.</p>
+        </div>
+        <div class="grid-3">
+            <article class="card"><h3>1. Wybór zwierzęcia</h3><p>Przejrzyj profile zwierząt i wybierz psa lub kota, który pasuje do Twoich warunków.</p></article>
+            <article class="card"><h3>2. Wniosek adopcyjny</h3><p>Uzupełnij dane kontaktowe, opisz swoje doświadczenie i warunki opieki.</p></article>
+            <article class="card"><h3>3. Kontakt ze schroniskiem</h3><p>Po analizie zgłoszenia ustalany jest termin rozmowy lub wizyty adopcyjnej.</p></article>
+        </div>
+    </div>
+</section>
+<section class="section bg-light">
+    <div class="container">
+        <div class="section-title"><h2>Polecane zwierzęta</h2><p>Wybrane profile zwierząt, które czekają na nowy dom.</p></div>
+        <div class="animals-grid">
+    {% for animal in featured_animals %}
+    <article class="animal-card">
+        <img src="{% if animal.image %}{{ animal.image.url }}{% else %}https://via.placeholder.com/600x400?text=Brak+zdjęcia{% endif %}" alt="{{ animal.name }}">
+        <div class="animal-content">
+            <div class="animal-meta">
+                <span class="badge">{{ animal.get_species_display }}</span>
+                <span class="badge">{{ animal.age }} lat</span>
+                <span class="badge">{{ animal.shelter.city|title }}</span>
+            </div>
+            <h3>{{ animal.name }}</h3>
+            <p>{{ animal.description }}</p>
+            <div class="card-buttons">
+                <a href="{% url 'animal_details' %}?animal={{ animal.name }}" class="btn btn-main small-btn">Szczegóły</a>
+                <a href="{% url 'adoption_form' %}?animal={{ animal.name }}" class="btn btn-light small-btn">Adoptuj</a>
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+    </div>
+</section>
+<section class="section">
+    <div class="container stats-grid">
+        <div class="stat-box"><strong>148</strong><span>zwierząt pod opieką</span></div>
+        <div class="stat-box"><strong>73</strong><span>udane adopcje w tym roku</span></div>
+        <div class="stat-box"><strong>6</strong><span>współpracujących schronisk</span></div>
+        <div class="stat-box"><strong>26</strong><span>wolontariuszy</span></div>
+    </div>
+</section>
+
+{% endblock %}
