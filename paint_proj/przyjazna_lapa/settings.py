@@ -135,6 +135,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'  # Wymagane przez collectstatic/whitenois
 
 # Whitenoise - kompresja plików statycznych
 STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
