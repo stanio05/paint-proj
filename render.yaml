@@ -1,0 +1,22 @@
+databases:
+  - name: przyjazna-lapa-db
+    databaseName: przyjazna_lapa
+    plan: free
+
+services:
+  - type: web
+    name: przyjazna-lapa
+    runtime: python
+    plan: free
+    rootDir: paint_proj
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn przyjazna_lapa.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: przyjazna-lapa-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: 3.12.7
