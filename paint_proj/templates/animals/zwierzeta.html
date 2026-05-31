@@ -39,7 +39,7 @@
         <div class="animals-grid">
             {% for animal in animals %}
             <article class="animal-card">
-                <img src="{% if animal.image %}{{ animal.image.url }}{% else %}https://via.placeholder.com/600x400?text=Brak+zdjęcia{% endif %}" alt="{{ animal.name }}">
+                <img src="{% if animal.image %}{{ animal.image.url }}{% else %}https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&h=400&fit=crop{% endif %}" alt="{{ animal.name }}">
                 <div class="animal-content">
                     <div class="animal-meta">
                         <span class="badge">{{ animal.get_species_display }}</span>

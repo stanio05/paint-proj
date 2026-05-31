@@ -4,7 +4,7 @@
 {% block content %}
 <section class="page-header"><div class="container"><h2>Szczegóły zwierzęcia</h2><p>Poznaj charakter, potrzeby i stan zdrowia wybranego zwierzęcia.</p></div></section>
 <section class="section"><div class="container details-layout">
-    <div class="details-photo"><img src="{% if animal.image %}{{ animal.image.url }}{% else %}https://via.placeholder.com/600x400?text=Brak+zdjęcia{% endif %}" alt="{{ animal.name }}"></div>
+    <div class="details-photo"><img src="{% if animal.image %}{{ animal.image.url }}{% else %}https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&h=400&fit=crop{% endif %}" alt="{{ animal.name }}"></div>
     <article class="details-card">
         <div class="animal-meta">
             <span class="badge">{{ animal.get_species_display }}</span>
