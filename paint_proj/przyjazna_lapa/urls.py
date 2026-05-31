@@ -16,5 +16,5 @@ urlpatterns = [
     path('admin-app/', views.admin_panel_view, name='admin_panel'),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Serwowanie plików media (zdjęcia zwierząt) - również w produkcji
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
